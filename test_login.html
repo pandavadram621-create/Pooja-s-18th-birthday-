@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firebase Auth Test Page</title>
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+  }
+  .login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 300px;
+  }
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+  }
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 14px;
+  }
+  .login-btn { background-color: #007bff; }
+  .signup-btn { background-color: #28a745; }
+  .logout-btn { background-color: #dc3545; margin-top: 15px; display: none; }
+  #statusMsg {
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+</head>
+<body>
+
+<div class="login-box">
+  <h2 id="pageTitle">Test Login System</h2>
+  
+  <div id="authInputs">
+    <input type="text" id="username" placeholder="Enter Username (e.g., testuser)">
+    <input type="password" id="password" placeholder="Enter Password (Min 6 letters)">
+    <br>
+    <button class="btn login-btn" onclick="processAuth('login')">Login 🔐</button>
+    <button class="btn signup-btn" onclick="processAuth('signup')">Sign Up 📝</button>
+  </div>
+
+  <button id="logoutBtn" class="btn logout-btn" onclick="logoutUser()">Logout ❌</button>
+  <p id="statusMsg"></p>
+</div>
+
+<script>
+// ⚙️ APNI FIREBASE CONFIG DETAILS YAHAN DALO
+const firebaseConfig = {
+  apiKey: "AIzaSyBDxzIMXuCoEVav6G2MhK8OYvAM2wXwcDM",
+  authDomain: "pooja-birthday.firebaseapp.com",
+  projectId: "pooja-birthday",
+  storageBucket: "pooja-birthday.firebasestorage.app",
+  messagingSenderId: "551072199489",
+  appId: "1:551072199489:web:0a8cf9f2721f7f33ace7c0",
+  measurementId: "G-EBDXTWB9VQ"
+};
+
+// Firebase shuru karein
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+const statusMsg = document.getElementById("statusMsg");
+const authInputs = document.getElementById("authInputs");
+const logoutBtn = document.getElementById("logoutBtn");
+const pageTitle = document.getElementById("pageTitle");
+
+// 🔄 1. AUTO-LOGIN CHECK (Yeh check karega ki pehle se login hai ya nahi)
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    // Agar user logged in hai
+    pageTitle.innerText = "Welcome! 🎉";
+    authInputs.style.display = "none"; // Inputs chhupa do
+    logoutBtn.style.display = "inline-block"; // Logout button dikhao
+    
+    // Fake email me se sirf username nikal kar dikhane ke liye
+    const currentUsername = user.email.split('@')[0];
+    statusMsg.style.color = "green";
+    statusMsg.innerText = "Success! Aap login hain as: " + currentUsername;
+  } else {
+    // Agar logged in nahi hai
+    pageTitle.innerText = "Test Login System";
+    authInputs.style.display = "block"; // Inputs dikhao
+    logoutBtn.style.display = "none"; // Logout button chhupa do
+    statusMsg.innerText = "";
+  }
+});
+
+// 🔑 2. LOGIN AUR SIGNUP ENGINE
+async function processAuth(type) {
+  const username = document.getElementById("username").value.trim().toLowerCase();
+  const password = document.getElementById("password").value;
+  
+  if (!username || !password) {
+    statusMsg.style.color = "orange";
+    statusMsg.innerText = "Username aur Password dono likho! 🧐";
+    return;
+  }
+  if (password.length < 6) {
+    statusMsg.style.color = "orange";
+    statusMsg.innerText = "Password kam se kam 6 letters ka rakho! 🔒";
+    return;
+  }
+
+  // Piche se fake email banana
+  const fakeEmail = `${username}@birthday.com`;
+  statusMsg.style.color = "blue";
+
+  if (type === 'signup') {
+    statusMsg.innerText = "Account bana rahe hain... ⏳";
+    try {
+      await auth.createUserWithEmailAndPassword(fakeEmail, password);
+      statusMsg.style.color = "green";
+      statusMsg.innerText = "Account successfully ban gaya! 🎉";
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        statusMsg.style.color = "red";
+        statusMsg.innerText = "Yeh username pehle se le liya gaya hai! 🥺";
+      } else {
+        statusMsg.style.color = "red";
+        statusMsg.innerText = "Error: " + error.message;
+      }
+    }
+  } else if (type === 'login') {
+    statusMsg.innerText = "Checking... ⏳";
+    try {
+      await auth.signInWithEmailAndPassword(fakeEmail, password);
+    } catch (error) {
+      statusMsg.style.color = "red";
+      statusMsg.innerText = "Galat Username ya Password! ❌";
+    }
+  }
+}
+
+// ❌ 3. LOGOUT FUNCTION
+function logoutUser() {
+  auth.signOut();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 18th Birthday Pooja 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fee140 0%, #fa709a 100%);
+  overflow: hidden;
+}
+
+/* 🔐 Password Screen Styling */
+#passwordScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pass-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 280px;
+}
+.pass-box h3 {
+  margin-bottom: 20px;
+  color: #ff2e63;
+}
+.pass-input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #ffccd5;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  outline: none;
+}
+.pass-btn {
+  margin-top: 15px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4d79;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pass-btn:hover {
+  transform: scale(1.05);
+  background: #ff2e63;
+}
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  display: none;
+}
+
+/* Floating Hearts & Stars Background */
+.hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.heart {
+  position: absolute;
+  animation: float 6s linear infinite;
+  font-size: 20px;
+}
+@keyframes float {
+  0% {transform: translateY(100vh) rotate(0deg); opacity: 0;}
+  50% {opacity: 1;}
+  100% {transform: translateY(-10vh) rotate(360deg); opacity: 0;}
+}
+
+/* 3D Book Container */
+.book {
+  width: 380px;
+  height: 460px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+/* Elegant Romantic Pages */
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 25px 22px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 192, 203, 0.6);
+  box-shadow: 0 20px 50px rgba(250, 112, 154, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transform: rotateY(-15deg) scale(0.95);
+  transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.4s;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.page::before {
+  content: "👑 ✨ 💖 🌹 ♾️";
+  position: absolute;
+  font-size: 35px;
+  opacity: 0.05;
+  bottom: 8%;
+  left: 10%;
+  letter-spacing: 5px;
+}
+
+.page.active {
+  opacity: 0; /* Changed to 0 so it stays hidden until password is correct */
+  pointer-events: none;
+}
+
+/* Class to reveal the active page after authentication */
+.page.active.unlocked {
+  opacity: 1;
+  pointer-events: auto;
+  transform: rotateY(0deg) scale(1);
+  z-index: 10;
+}
+
+h2, h3 {
+  text-align: center;
+  color: #ff2e63;
+  font-family: 'Pacifico', cursive;
+  margin-top: 5px;
+}
+
+h2 { font-size: 24px; line-height: 1.4; }
+h3 { font-size: 22px; }
+
+p {
+  text-align: center;
+  color: #4a4a4a;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.romantic-line {
+  font-style: italic;
+  color: #ff4d79;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+/* 🎂 Interactive Cake */
+.cake {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.plate { width: 180px; height: 15px; background: #f0f0f0; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+.layer { width: 150px; height: 40px; background: linear-gradient(#ff85a2, #ff4d79); border-radius: 10px 10px 0 0; margin-top: -5px; position: relative; }
+.layer.middle { width: 120px; background: linear-gradient(#fbc2eb, #a1c4fd); }
+.layer.top { width: 90px; background: linear-gradient(#ff9a9e, #fecfef); }
+.layer::before {
+  content: ""; position: absolute; top: 0; left: 5px; right: 5px; height: 8px; background: rgba(255,255,255,0.6); border-radius: 50%;
+}
+
+.candles { display: flex; gap: 12px; margin-bottom: 3px; }
+.candle { width: 8px; height: 25px; background: linear-gradient(to right, #fff, #ffd1d1); position: relative; border-radius: 2px; }
+.flame {
+  width: 10px; height: 14px; background: radial-gradient(circle, yellow, orange, transparent);
+  position: absolute; top: -14px; left: -1px; border-radius: 50%; animation: flicker 0.3s infinite alternate;
+}
+@keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 100% { transform: scale(1.15) rotate(2deg); } }
+
+.smoke {
+  position: absolute; width: 8px; height: 8px; background: rgba(220,220,220,0.7); border-radius: 50%; top: -15px; animation: smokeUp 2s ease-out forwards;
+}
+@keyframes smokeUp { 0% { transform: translateY(0) scale(1); opacity: 0.8; } 100% { transform: translateY(-50px) scale(2.5); opacity: 0; } }
+
+/* 🌟 Love Meter */
+.love-meter-container {
+  margin: 15px 0;
+  background: #fff0f5;
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px dashed #ff4d79;
+}
+.meter-bar {
+  width: 0%; height: 12px; background: linear-gradient(to right, #ff9a9e, #ff4d79); border-radius: 10px; transition: width 2s ease-in-out;
+}
+.reasons-list {
+  text-align: left; padding-left: 15px; font-size: 13px; color: #555;
+}
+.reasons-list li { margin-bottom: 6px; list-style-type: "💖 "; }
+
+/* 🎙️ Voice Player Section */
+.voice-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+.voice-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff5f7;
+  border: 1px solid #ffccd5;
+  padding: 10px 15px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+.voice-item:hover {
+  background: #ffe5ec;
+  transform: translateY(-2px);
+}
+.voice-info {
+  text-align: left;
+}
+.voice-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #ff2e63;
+}
+.voice-sub {
+  font-size: 11px;
+  color: #777;
+}
+.play-btn {
+  background: #ff4d79;
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(255, 77, 121, 0.3);
+  transition: 0.2s;
+}
+.play-btn:hover {
+  transform: scale(1.1);
+  background: #ff2e63;
+}
+
+/* 🎮 Romantic Games Styling */
+.game-box {
+  background: #fff5f7;
+  border: 1px dashed #ff4d79;
+  border-radius: 15px;
+  padding: 12px;
+  margin-top: 10px;
+  text-align: center;
+}
+.ttt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-width: 160px;
+  margin: 10px auto;
+}
+.ttt-cell {
+  background: white;
+  border: 1px solid #ffccd5;
+  height: 45px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff2e63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* 🔢 Guess Game Elements */
+.guess-input {
+  width: 70px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #ffccd5;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff2e63;
+}
+.guess-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #ff4d79;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+/* 📸 Polaroid Gallery (Updated for scrolling 14 photos smoothly) */
+.galleryPage {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, #fee140 0%, #fa709a 100%) fixed;
+  display: none; z-index: 999; padding: 25px 20px; overflow-y: auto; box-sizing: border-box;
+}
+.gallery {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;
+}
+.gallery-card {
+  position: relative; background: white; padding: 8px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); transform: rotate(calc(var(--r) * 1deg)); transition: 0.3s;
+}
+.gallery-card:hover { transform: rotate(0deg) scale(1.05); z-index: 5; }
+.gallery-card img { width: 100%; border-radius: 8px; display: block; }
+.gallery-card span { display: block; text-align: center; font-size: 11px; color: #ff4d79; font-family: 'Pacifico', cursive; margin-top: 5px; }
+
+/* Buttons */
+.btn-container { display: flex; justify-content: center; margin-top: 20px; }
+.action-btn {
+  padding: 10px 24px; font-size: 14px; border: none; border-radius: 25px;
+  background: linear-gradient(135deg, #ff4d79, #ff85a2); color: white; font-weight: 600;
+  box-shadow: 0 6px 15px rgba(255, 77, 121, 0.4); cursor: pointer; transition: 0.3s;
+}
+.action-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(255, 77, 121, 0.6); }
+
+.tap-hint { font-size: 11px; color: #b5b5b5; margin-top: 15px; animation: pulse 1.5s infinite; text-align: center; }
+@keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+  
+  /* 📜 Certificate Styling Fix */
+.cert-design {
+  width: 340px;
+  height: 460px;
+  background: #fffdf6;
+  border: 12px double #d4af37;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 30px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+}
+.cert-design::before {
+  content: "🏆";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 20px;
+  color: #d4af37;
+}
+.cert-name {
+  font-family: 'Pacifico', cursive;
+  font-size: 28px;
+  color: #ff2e63;
+  margin: 20px 0;
+  border-bottom: 2px dashed #d4af37;
+  display: inline-block;
+  padding: 0 15px;
+}
+.cert-text {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="passwordScreen">
+  <div class="pass-box">
+    <h3>Enter Secret Code 🔑</h3>
+    <input type="password" id="secretCode" class="pass-input" placeholder="••••" maxlength="4">
+    <br>
+    <button class="pass-btn" onclick="verifyPassword()">Unlock Box ✨</button>
+    <div id="errorMsg" class="error-msg">Galat Password! Dubara koshish karo 🥺</div>
+  </div>
+</div>
+
+<audio id="birthdaySong" src="images/birthday.mp3"></audio>
+<audio id="bgMusic"></audio>
+<audio id="clapSound" src="images/clap.mp3"></audio>
+
+<audio id="voice-wish" src="images/HB.mp3"></audio>
+<audio id="voice-love" src="images/ILU.mp3"></audio>
+<audio id="voice-sorry" src="images/Sorry.mp3"></audio>
+<audio id="voice-future" src="images/Wife.mp3"></audio>
+<audio id="voice-promise" src="images/Promise.mp3"></audio>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="book" id="book">
+
+  <div class="page active">
+    <h3>Ek Wish Mango, Pooja 🎂</h3>
+    <p class="romantic-line">"Tari khushi j mara mate badhu j chhe..."</p>
+    <div class="cake" onclick="blowCandles(); event.stopPropagation();">
+      <div class="candles">
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+      </div>
+      <div class="layer top"></div>
+      <div class="layer middle"></div>
+      <div class="layer"></div>
+      <div class="plate"></div>
+      <p class="tap-hint">Cake par tap karine meembatti bujhavo ✨</p>
+    </div>
+  </div>
+
+  <div class="page" onclick="nextPage()">
+    <h2>Happy 18th Birthday My Queen 👑</h2>
+    <p class="romantic-line">Welcome to adulthood, Pooja! ❤️</p>
+    <p>Aaj no divas mara mate bahu j khass chhe. Mari pyaari pari have officially 18 varsh ni thai gai chhe!</p>
+    <p>Zindagi na aa nava chapter ma taru darek sapnu pooru thai, and tari aa smile hamesha aavi j rahe.</p>
+    <p class="tap-hint">Kaik khass jova mate game tya tap karo... 👉</p>
+  </div>
+
+  <div class="page" onclick="nextPage()">
+    <h3>Hu Tane Jetlo Prem Kem Karu Chhu? 🤔</h3>
+    <div class="love-meter-container">
+      <div style="font-size: 12px; font-weight: bold; color: #ff2e63; margin-bottom: 5px; text-align: center;">
+        Our Love Compatibility: <span id="meter-val">0%</span>
+      </div>
+      <div style="background: #e0e0e0; border-radius: 10px; overflow: hidden;">
+        <div class="meter-bar" id="loveBar"></div>
+      </div>
+    </div>
+    <ul class="reasons-list">
+      <li>Tari te pyaari smile je maro aakho divas banavi de chhe.</li>
+      <li>Je rite tu mari care kare chhe, tevu koi j na kari shake.</li>
+      <li>Maro gusse sahan karvo and mane hamesha samjhavo.</li>
+    </ul>
+    <p class="tap-hint">Mara prem patra mate game tya tap karo... 👉</p>
+  </div>
+
+  <div class="page" onclick="nextPage()">
+  <h3>Aapno Hamesha No Sath ⏳</h3>
+  <p class="romantic-line">"Jiyarthi tu mari zindagi ma aavi chhe..."</p>
+  
+  <div style="background: #fff5f7; border: 1px dashed #ff4d79; border-radius: 15px; padding: 20px 10px; margin-top: 20px; text-align: center;">
+    <div style="font-size: 14px; font-weight: 600; color: #ff2e63; margin-bottom: 15px;">
+      We have been together for:
+    </div>
+    <div style="display: flex; justify-content: center; gap: 10px; font-weight: bold; color: #4a4a4a;">
+      <div><span id="timer-years" style="font-size: 24px; color: #ff4d79;">0</span><br><span style="font-size: 11px; color: #777;">Years</span></div>
+      <div><span style="font-size: 24px; color: #ffccd5;">:</span></div>
+      <div><span id="timer-days" style="font-size: 24px; color: #ff4d79;">0</span><br><span style="font-size: 11px; color: #777;">Days</span></div>
+      <div><span style="font-size: 24px; color: #ffccd5;">:</span></div>
+      <div><span id="timer-hours" style="font-size: 24px; color: #ff4d79;">0</span><br><span style="font-size: 11px; color: #777;">Hours</span></div>
+      <div><span style="font-size: 24px; color: #ffccd5;">:</span></div>
+      <div><span id="timer-mins" style="font-size: 24px; color: #ff4d79;">0</span><br><span style="font-size: 11px; color: #777;">Mins</span></div>
+      <div><span style="font-size: 24px; color: #ffccd5;">:</span></div>
+      <div><span id="timer-secs" style="font-size: 24px; color: #ff4d79;">0</span><br><span style="font-size: 11px; color: #777;">Secs</span></div>
+    </div>
+  </div>
+  
+  <p class="tap-hint" style="margin-top: 25px;">Aapni yaado jova mate tap karo... 👉</p>
+</div>
+
+  <div class="page" onclick="nextPage()">
+    <h3>Maro Dil No Patra 💌</h3>
+    <p class="romantic-line">"Tu mari life no sauthi khubsurat bhag chhe..."</p>
+    <p>Pooja, tara vagar mari zindagi ekdum adhuri chhe. Jyaare tu sathe hoi chhe tyaare mushkil rasta pan saral laage chhe.</p>
+    <p>Tu mari best friend pan chhe, partner pan and maru aakhu jagat pan chhe. Mari life ma aavva mate and ene aatli haseen banavva mate Thank You. Love you infinity! ❤️</p>
+    <p class="tap-hint">Mara voice notes saambhlva tya tap karo... 👉</p>
+  </div>
+
+  <div class="page" onclick="event.stopPropagation();">
+    <h3>Saambhalo Maro Aawaj 🎙️</h3>
+    <p class="romantic-line">"Mara dil ni vaat, mari vaani ma..."</p>
+    
+    <div class="voice-grid">
+      <div class="voice-item">
+        <div class="voice-info">
+          <div class="voice-title">Birthday Wish 🎂</div>
+          <div class="voice-sub">Pooja mate ek special wish...</div>
+        </div>
+        <button class="play-btn" onclick="toggleVoice('voice-wish', this)">▶</button>
+      </div>
+
+      <div class="voice-item">
+        <div class="voice-info">
+          <div class="voice-title">I Love You ❤️</div>
+          <div class="voice-sub">Mara dil ni sauthi sachi vaat...</div>
+        </div>
+        <button class="play-btn" onclick="toggleVoice('voice-love', this)">▶</button>
+      </div>
+
+      <div class="voice-item">
+        <div class="voice-info">
+          <div class="voice-title">I Am Sorry 🥺</div>
+          <div class="voice-sub">Mari bhoolo mate mafi...</div>
+        </div>
+        <button class="play-btn" onclick="toggleVoice('voice-sorry', this)">▶</button>
+      </div>
+
+      <div class="voice-item">
+        <div class="voice-info">
+          <div class="voice-title">Our Future 🧑‍🤝‍🧑</div>
+          <div class="voice-sub">Aapna aavta kal ni vaato...</div>
+        </div>
+        <button class="play-btn" onclick="toggleVoice('voice-future', this)">▶</button>
+      </div>
+
+      <div class="voice-item">
+        <div class="voice-info">
+          <div class="voice-title">My Promise ♾️</div>
+          <div class="voice-sub">Hamesha taro sath nibhavva no vaado...</div>
+        </div>
+        <button class="play-btn" onclick="toggleVoice('voice-promise', this)">▶</button>
+      </div>
+    </div>
+    
+    <p class="tap-hint" onclick="nextPage()" style="margin-top:10px; cursor:pointer;">Games khelva mate tya tap karo... 👉</p>
+  </div>
+
+  <div class="page" onclick="event.stopPropagation();">
+    <h3>Pooja vs Mayur ❌⭕</h3>
+    <p class="romantic-line" id="ttt-status">Your turn (Pooja: X)</p>
+    <div class="game-box">
+      <div class="ttt-grid">
+        <div class="ttt-cell" onclick="playTTT(0, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(1, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(2, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(3, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(4, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(5, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(6, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(7, this)"></div>
+        <div class="ttt-cell" onclick="playTTT(8, this)"></div>
+      </div>
+      <button onclick="resetTTT()" style="padding:4px 12px; border-radius:10px; border:none; background:#ff4d79; color:white; font-size:12px; cursor:pointer;">Reset Game</button>
+    </div>
+    <p class="tap-hint" onclick="nextPage()" style="margin-top:10px; cursor:pointer;">Next Game jova mate tya tap karo... 👉</p>
+  </div>
+  
+  
+
+
+  <div class="page" onclick="event.stopPropagation();">
+    <h3>Guess Mayur's Mind 🔢</h3>
+    <p class="romantic-line" id="guess-status">Mayur dharilo ek number (1 to 50)...</p>
+    <div class="game-box" style="padding: 20px 10px;">
+      <input type="number" id="pooja-guess" class="guess-input" placeholder="No.">
+      <button onclick="checkGuess()" class="guess-btn">Guess!</button>
+      <div style="margin-top: 15px;">
+        <button onclick="initGuessGame()" style="padding:4px 12px; border-radius:10px; border:none; background:#aaa; color:white; font-size:11px; cursor:pointer;">Reset Secret No.</button>
+      </div>
+    </div>
+    <p class="tap-hint" onclick="nextPage()" style="margin-top:10px; cursor:pointer;">Yaado ne jova mate tya tap karo... 👉</p>
+  </div>
+
+  <div class="page" onclick="openGallery(); event.stopPropagation();">
+    <h3>Aapni Magical Yaado 📸</h3>
+    <p class="romantic-line">"Kaik yaado je hamesha dil ni paas raheshe..."</p>
+    <p style="margin-top: 30px;">Me aapna ketla j khass moments ne ek jagah bhelga karya chhe. Ene jova mate niche aapela button par tap karo! 💖</p>
+    <div class="btn-container">
+      <button class="action-btn">Open Gallery ✨</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="galleryPage" id="galleryPage">
+  <div class="hearts" id="galleryHearts"></div>
+  <h2>Aapni Khubsurat Yaado 💙</h2>
+  <p style="text-align: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.2); font-style: italic; margin-top:-10px;">Tara sathe bitaveli darek kshan ek khubsurat sapna jevi chhe...</p>
+  
+  <div class="gallery">
+    <div class="gallery-card" style="--r: -4">
+      <img src="images/pooja1.png" alt="Memory 1">
+      <span>Mari Aakhi Duniya 🌍</span>
+    </div>
+    <div class="gallery-card" style="--r: 3">
+      <img src="images/pooja2.png" alt="Memory 2">
+      <span>Te Pyaari Smile 😍</span>
+    </div>
+    <div class="gallery-card" style="--r: -2">
+      <img src="images/pooja3.png" alt="Memory 3">
+      <span>Ek Beeja Mate Banela 💑</span>
+    </div>
+    <div class="gallery-card" style="--r: 5">
+      <img src="images/pooja4.png" alt="Memory 4">
+      <span>Hamesha Mate Sathe ♾️</span>
+    </div>
+    <div class="gallery-card" style="--r: -3">
+      <img src="images/pooja5.png" alt="Memory 5">
+      <span>My Whole Happiness 💕</span>
+    </div>
+    <div class="gallery-card" style="--r: 2">
+      <img src="images/pooja6.png" alt="Memory 6">
+      <span>Cutest Couple ✨</span>
+    </div>
+    <div class="gallery-card" style="--r: -5">
+      <img src="images/pooja7.png" alt="Memory 7">
+      <span>Beautiful Moments 🌸</span>
+    </div>
+    <div class="gallery-card" style="--r: 4">
+      <img src="images/pooja8.png" alt="Memory 8">
+      <span>Hold My Hand Forever 🤝</span>
+    </div>
+    <div class="gallery-card" style="--r: -2">
+      <img src="images/pooja9.png" alt="Memory 9">
+      <span>Made For Each Other 💖</span>
+    </div>
+    <div class="gallery-card" style="--r: 3">
+      <img src="images/pooja10.png" alt="Memory 10">
+      <span>Tari Aa Pyaari Ankho 👀</span>
+    </div>
+    <div class="gallery-card" style="--r: -4">
+      <img src="images/pooja11.png" alt="Memory 11">
+      <span>Unforgettable Day 🌅</span>
+    </div>
+    <div class="gallery-card" style="--r: 5">
+      <img src="images/pooja12.png" alt="Memory 12">
+      <span>Tari Sathe Badhu Perfect 🥰</span>
+    </div>
+    <div class="gallery-card" style="--r: -3">
+      <img src="images/pooja13.png" alt="Memory 13">
+      <span>Love You Infinity ♾️❤️</span>
+    </div>
+    <div class="gallery-card" style="--r: 2">
+      <img src="images/pooja14.png" alt="Memory 14">
+      <span>Maro Aakho Sansar 🌍💙</span>
+    </div>
+  </div>
+  
+  <div class="btn-container" style="margin-top: 40px; margin-bottom: 30px;">
+    <button class="action-btn" onclick="closeGallery()" style="background: white; color: #ff4d79; box-shadow: 0 6px 15px rgba(0,0,0,0.15);">Back to Book 💖</button>
+  </div>
+</div>
+  <div class="page" onclick="event.stopPropagation();">
+  <h3>Best Wife Eligibility Test 📝</h3>
+  <p class="romantic-line" id="quiz-main-status">Aapo sacha javab and melvo certificate!</p>
+  
+  <div class="quiz-container" style="max-height: 250px; overflow-y: auto; text-align: left;">
+    <div class="quiz-question" style="font-size: 13px; font-weight: 600; color: #ff2e63; margin-top: 12px;">Q1. Mayur gusse thay tyare Pooja shu karse?</div>
+    <div class="quiz-options" style="font-size: 12px; margin-top: 5px;">
+      <label style="display: block; margin-bottom: 5px;"><input type="radio" name="q1" value="wrong"> Samo jgdo karshe 😡</label>
+      <label style="display: block; margin-bottom: 5px;"><input type="radio" name="q1" value="correct"> Ek sweet kiss and tight hug aapi ne manavi leshe 🥰</label>
+    </div>
+
+    <div class="quiz-question" style="font-size: 13px; font-weight: 600; color: #ff2e63; margin-top: 12px;">Q2. Mayur mate Pooja no prem ketlo chhe?</div>
+    <div class="quiz-options" style="font-size: 12px; margin-top: 5px;">
+      <label style="display: block; margin-bottom: 5px;"><input type="radio" name="q2" value="wrong"> Thodo j 🤏</label>
+      <label style="display: block; margin-bottom: 5px;"><input type="radio" name="q2" value="correct"> Aakha brahmand karta pan vadhare, Infinite! ♾️💖</label>
+    </div>
+
+    <div class="quiz-question" style="font-size: 13px; font-weight: 600; color: #ff2e63; margin-top: 12px;">Q3. Mayur no divas sauthi best kyare bane chhe?</div>
+    <div class="quiz-options" style="font-size: 12px; margin-top: 5px;">
+      <label style="display: block; margin-bottom: 5px;"><input type="radio" name="q3" value="correct"> Jyaare Pooja hase chhe and prem thi vaat kare chhe 🥺✨</label>
+      <label style="display: block; margin-bottom: 5px;"><input type="radio" name="q3" value="wrong"> Jyaare te mobile ma busy hoi 📱</label>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <button onclick="verifyWifeQuiz()" class="guess-btn" style="background: #ff2e63; padding: 8px 18px; color: white; border: none; border-radius: 8px; cursor: pointer;">Check Result 🔍</button>
+  </div>
+  
+  <div id="rewardZone" style="display:none; text-align:center; margin-top:10px;">
+     <button class="action-btn" onclick="openCertModal()" style="font-size:12px; padding:6px 15px;">Claim Your Certificate 🏆✨</button>
+  </div>
+
+  <p class="tap-hint" id="quiz-tap-hint" onclick="nextPage()" style="margin-top:8px; cursor:pointer;">Yaado ne jova mate tya tap karo... 👉</p>
+</div>
+<div id="certModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 20000; justify-content: center; align-items: center; flex-direction: column;">
+  <div class="cert-design" id="certificateBlob" style="width: 340px; height: 460px; background: #fffdf6; border: 12px double #d4af37; border-radius: 10px; padding: 30px 20px; box-sizing: border-box; text-align: center;">
+    <h1 style="font-family: 'Pacifico', cursive; color: #d4af37; font-size: 24px;">Certificate of Excellence</h1>
+    <h2 style="font-size: 16px; color: #4a4a4a;">This is officially awarded to</h2>
+    <div class="cert-name" style="font-family: 'Pacifico', cursive; font-size: 28px; color: #ff2e63; margin: 20px 0; border-bottom: 2px dashed #d4af37; display: inline-block;">Pooja</div>
+    <p class="cert-text" style="font-size: 12px; color: #555; font-style: italic;">For being the world's most beautiful, caring, and overall Best Wife ever in Mayur's life. Your smile is my permanent happiness.</p>
+    <p style="font-size: 11px; color: #ff2e63; font-weight: bold; margin-top: 15px;">Verified Score: 100% Perfect Compatibility ♾️❤️</p>
+  </div>
+  <div class="btn-container" style="display: flex; gap: 15px; margin-top: 15px;">
+    <button class="action-btn" onclick="downloadCertificate()" style="background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer;">Download 📥</button>
+    <button class="action-btn" onclick="closeCertModal()" style="background: white; color: #ff4d79; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer;">Close ❌</button>
+  </div>
+</div>
+
+<script>
+const birthdaySong = document.getElementById("birthdaySong");
+const bgMusic = document.getElementById("bgMusic");
+const clapSound = document.getElementById("clapSound");
+
+// Background Romantic Playlist
+const playlist = [
+  "images/song1.mp3", "images/song2.mp3", "images/song3.mp3",
+  "images/song4.mp3", "images/song5.mp3", "images/song6.mp3", "images/song7.mp3"
+];
+let currentSong = 0;
+let activeVoiceAudio = null;
+
+// Initial setup with lower volumes
+birthdaySong.volume = 0.2; 
+clapSound.volume = 0.15;   
+
+// 🔐 Password Verification Function
+function verifyPassword() {
+  const inputCode = document.getElementById("secretCode").value;
+  const errorMsg = document.getElementById("errorMsg");
+  
+  if (inputCode === "1168") {
+    document.getElementById("passwordScreen").style.display = "none";
+    // Unlock and show the first page instantly
+    const firstPage = document.querySelector(".page.active");
+    if(firstPage) {
+      firstPage.classList.add("unlocked");
+    }
+    // Automatically trigger the original music behavior
+    startBirthday();
+  } else {
+    errorMsg.style.display = "block";
+    document.getElementById("secretCode").value = "";
+  }
+}
+
+// Allow pressing 'Enter' key to submit password
+document.getElementById("secretCode").addEventListener("keyup", function(event) {
+  if (event.key === "Enter") {
+    verifyPassword();
+  }
+});
+
+function startBirthday() {
+  birthdaySong.play().catch(()=>{});
+}
+// Note: Click listeners removed from window to avoid early triggers before password entry
+
+// Candle Blow Mechanics
+function blowCandles(){
+  document.querySelectorAll(".candle").forEach(c=>{
+    let f=c.querySelector(".flame");
+    if(f) f.style.display="none";
+
+    for(let i=0;i<3;i++){
+      let s=document.createElement("div");
+      s.className="smoke";
+      s.style.left=(Math.random()*6-3)+"px";
+      c.appendChild(s);
+      setTimeout(()=>s.remove(),2000);
+    }
+  });
+
+  if(birthdaySong){
+    birthdaySong.pause();
+    birthdaySong.currentTime = 0;
+  }
+
+  clapSound.play().catch(()=>{});
+
+  setTimeout(()=>{
+    nextPage();
+  },2200);
+
+  startBGMusic();
+}
+
+function startBGMusic(){
+  playBG(currentSong);
+}
+
+function playBG(index){
+  bgMusic.src = playlist[index];
+  bgMusic.volume = 0.25; 
+  bgMusic.play().catch(()=>{});
+}
+
+bgMusic.addEventListener("ended", ()=>{
+  currentSong++;
+  if(currentSong >= playlist.length){ currentSong = 0; }
+  playBG(currentSong);
+});
+
+// Voice Player Control
+function toggleVoice(audioId, buttonElement) {
+  const selectedAudio = document.getElementById(audioId);
+  
+  if (activeVoiceAudio && activeVoiceAudio !== selectedAudio) {
+    activeVoiceAudio.pause();
+    activeVoiceAudio.currentTime = 0;
+    document.querySelectorAll('.play-btn').forEach(btn => btn.innerText = "▶");
+  }
+
+  if (selectedAudio.paused) {
+    bgMusic.volume = 0.05; 
+    selectedAudio.play().catch(()=>{});
+    buttonElement.innerText = "⏸";
+    activeVoiceAudio = selectedAudio;
+    
+    selectedAudio.onended = () => {
+      bgMusic.volume = 0.25;
+      buttonElement.innerText = "▶";
+      activeVoiceAudio = null;
+    };
+  } else {
+    selectedAudio.pause();
+    buttonElement.innerText = "▶";
+    bgMusic.volume = 0.25;
+    activeVoiceAudio = null;
+  }
+}
+
+// 🎮 GAME 1: TIC-TAC-TOE ENGINE (Pooja vs Mayur)
+let tttBoard = ["","","","","","","","",""];
+let tttActive = true;
+
+function playTTT(index, cell) {
+  if (tttBoard[index] !== "" || !tttActive) return;
+  
+  tttBoard[index] = "X";
+  cell.innerText = "X";
+  
+  if (checkTTTWinner("X")) {
+    document.getElementById("ttt-status").innerText = "Pooja Wins! 🎉❤️";
+    tttActive = false;
+    return;
+  }
+  
+  if (!tttBoard.includes("")) {
+    document.getElementById("ttt-status").innerText = "It's a Tie! 🤝";
+    tttActive = false;
+    return;
+  }
+  
+  tttActive = false;
+  document.getElementById("ttt-status").innerText = "Mayur is thinking... 🤔";
+  
+  setTimeout(() => {
+    let emptyIndices = [];
+    tttBoard.forEach((val, i) => { if (val === "") emptyIndices.push(i); });
+    
+    if (emptyIndices.length > 0) {
+      let randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+      tttBoard[randomIndex] = "O";
+      document.querySelectorAll(".ttt-cell")[randomIndex].innerText = "O";
+      
+      if (checkTTTWinner("O")) {
+        document.getElementById("ttt-status").innerText = "Mayur Wins! 😜";
+      } else if (!tttBoard.includes("")) {
+        document.getElementById("ttt-status").innerText = "It's a Tie! 🤝";
+      } else {
+        document.getElementById("ttt-status").innerText = "Your turn (Pooja: X)";
+        tttActive = true;
+      }
+    }
+  }, 600);
+}
+
+function checkTTTWinner(p) {
+  const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  return w.some(comb => comb.every(i => tttBoard[i] === p));
+}
+
+function resetTTT() {
+  tttBoard = ["","","","","","","","",""];
+  tttActive = true;
+  document.querySelectorAll(".ttt-cell").forEach(c => c.innerText = "");
+  document.getElementById("ttt-status").innerText = "Your turn (Pooja: X)";
+}
+
+// 🎮 GAME 2: GUESS THE NUMBER ENGINE (Pooja vs Mayur)
+let secretNumber;
+function initGuessGame() {
+  secretNumber = Math.floor(Math.random() * 50) + 1;
+  document.getElementById("guess-status").innerText = "Mayur dharilo ek number (1 to 50)...";
+  document.getElementById("pooja-guess").value = "";
+}
+
+function checkGuess() {
+  let userGuess = parseInt(document.getElementById("pooja-guess").value);
+  if (isNaN(userGuess)) {
+    document.getElementById("guess-status").innerText = "Pehle ek number toh dalo! 🤔";
+    return;
+  }
+  
+  if (userGuess === secretNumber) {
+    document.getElementById("guess-status").innerText = "Wow Pooja! Perfect Guess! 🎉❤️";
+  } else if (userGuess > secretNumber) {
+    document.getElementById("guess-status").innerText = "Too High! Thodu niche utro... 😉";
+  } else {
+    document.getElementById("guess-status").innerText = "Too Low! Thodu upar jao... 📈";
+  }
+}
+
+// Book Page Navigation
+let pages = document.querySelectorAll(".page");
+let current = 0;
+let startX = 0;
+
+document.getElementById("book").addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+document.getElementById("book").addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+  if(startX - endX > 50) nextPage();
+  else if(endX - startX > 50) prevPage();
+});
+
+function showPage(i){
+  pages.forEach(p=>p.classList.remove("active", "unlocked"));
+  pages[i].classList.add("active", "unlocked");
+  
+  if (activeVoiceAudio) {
+    activeVoiceAudio.pause();
+    activeVoiceAudio.currentTime = 0;
+    document.querySelectorAll('.play-btn').forEach(btn => btn.innerText = "▶");
+    bgMusic.volume = 0.25;
+    activeVoiceAudio = null;
+  }
+  
+  // Love meter page dynamic trigger
+  if(i === 2) {
+    setTimeout(() => {
+      document.getElementById("loveBar").style.width = "100%";
+      let count = 0;
+      let timer = setInterval(() => {
+        count += 5;
+        if(count <= 100) {
+          document.getElementById("meter-val").innerText = count + "% Infinite";
+        } else {
+          clearInterval(timer);
+        }
+      }, 50);
+    }, 300);
+  }
+  
+  // Guess game initialization trigger (Page 8 is 7th Index)
+  if(i === 8) {
+    initGuessGame();
+  }
+}
+
+
+function nextPage(){ if(current < pages.length-1){current++; showPage(current);} }
+function prevPage(){ if(current > 0){current--; showPage(current);} }
+
+/* Floating Hearts & Petals Generator */
+function createHeart(containerId) {
+  let h = document.createElement("div");
+  h.className = "heart";
+  const symbols = ["💖", "❤️", "🌹", "✨", "🌸", "👑"];
+  h.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  let container = document.getElementById(containerId);
+  if(container) {
+    container.appendChild(h);
+    setTimeout(()=>h.remove(), 7000);
+  }
+}
+
+setInterval(() => createHeart("hearts"), 500);
+setInterval(() => createHeart("galleryHearts"), 500);
+
+function openGallery(){
+  document.getElementById("galleryPage").style.display="block";
+}
+function closeGallery(){
+  document.getElementById("galleryPage").style.display="none";
+}
+  
+  // 🗓️ Tame banne jiyarthi bhega thaya ho te date aya set karo (Format: YYYY-MM-DDTHH:MM:SS)
+// Example: 14th February 2024, na raate 8 vagye: "2024-02-14T20:00:00"
+const relationStartDate = new Date("2024-02-14T20:00:00"); 
+
+function updateLoveTimer() {
+  const now = new Date();
+  const diffInMs = now - relationStartDate;
+
+  if (diffInMs < 0) return; // Jo date bhavishya ni hoi toh
+
+  // Math Calculations
+  let secs = Math.floor(diffInMs / 1000);
+  let mins = Math.floor(secs / 60);
+  let hours = Math.floor(mins / 60);
+  let days = Math.floor(hours / 24); // Normal divas ni calculation
+
+  // Detail math for Years and remaining Days
+  const totalDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  const years = Math.floor(totalDays / 365);
+  const remainingDays = totalDays % 365;
+  const remainingHours = hours % 24;
+  const remainingMins = mins % 60;
+  const remainingSecs = secs % 60;
+
+  // HTML Elements ma live value set karvi
+  document.getElementById("timer-years").innerText = years;
+  document.getElementById("timer-days").innerText = remainingDays;
+  document.getElementById("timer-hours").innerText = remainingHours;
+  document.getElementById("timer-mins").innerText = remainingMins;
+  document.getElementById("timer-secs").innerText = remainingSecs;
+}
+
+// Darek 1 second (1000ms) ma timer update thashe
+setInterval(updateLoveTimer, 1000);
+updateLoveTimer(); // Pehli var execute karva mate
+  // QUIZ VALIDATION
+function verifyWifeQuiz() {
+  const q1 = document.querySelector('input[name="q1"]:checked');
+  const q2 = document.querySelector('input[name="q2"]:checked');
+  const q3 = document.querySelector('input[name="q3"]:checked');
+
+  if(!q1 || !q2 || !q3) {
+    document.getElementById("quiz-main-status").innerText = "Badha questions na answer aapo! 🛑";
+    return;
+  }
+
+  if(q1.value === "correct" && q2.value === "correct" && q3.value === "correct") {
+    document.getElementById("quiz-main-status").innerText = "100% Sacha Javab! Tu j sachi Queen chho! 👑❤️";
+    document.getElementById("rewardZone").style.display = "block";
+    document.getElementById("quiz-tap-hint").style.display = "none";
+  } else {
+    document.getElementById("quiz-main-status").innerText = "Oops! Kaik bhool thai! Dubara try karo 🥺";
+    document.getElementById("rewardZone").style.display = "none";
+    document.getElementById("quiz-tap-hint").style.display = "block";
+  }
+}
+
+// MODAL CONTROLS
+function openCertModal() { document.getElementById("certModal").style.display = "flex"; }
+function closeCertModal() { document.getElementById("certModal").style.display = "none"; nextPage(); }
+
+// DOWNLOAD MECHANICS
+function downloadCertificate() {
+  const element = document.getElementById('certificateBlob');
+  const opt = {
+    margin:       0,
+    filename:     'Pooja_Best_Wife_Certificate.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
+
+
+</script>
+
+</body>
+</html>
